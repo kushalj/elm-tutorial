@@ -1,0 +1,9 @@
+{
+  "name": "elm-tutorial",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:kushalj/elm-tutorial.git",
+  "author": "Kushal <kushal@elysian.net>",
+  "license": "MIT",
+  "dependencies": {}
+}
