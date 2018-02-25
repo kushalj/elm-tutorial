@@ -9,6 +9,15 @@ import Json.Decode.Pipeline exposing (decode, required)
 import Msgs exposing (Msg)
 import Models exposing (PlayerId, Player)
 import RemoteData
+import Navigation exposing (load)
+
+
+
+
+loadPlayerList: Cmd Msg
+loadPlayerList =
+    load "http://localhost:3000/players"
+
 
 
 
@@ -32,6 +41,7 @@ playersDecoder =
 
 
 
+
 playerDecoder : Decode.Decoder Player
 playerDecoder =
     decode Player
@@ -41,9 +51,18 @@ playerDecoder =
 
 
 
+
+savePlayerCmd : Player -> Cmd Msg 
+savePlayerCmd player =
+    savePlayerRequest player
+        |> Http.send Msgs.OnPlayerSave
+
+
+
 savePlayerUrl : PlayerId -> String
 savePlayerUrl playerId =
     "http://localhost:8000/players/" ++ playerId
+
 
 
 
@@ -61,10 +80,32 @@ savePlayerRequest player =
 
 
 
-savePlayerCmd : Player -> Cmd Msg 
-savePlayerCmd player =
-    savePlayerRequest player
-        |> Http.send Msgs.OnPlayerSave
+deletePlayerCmd : Player -> Cmd Msg 
+deletePlayerCmd player =
+    deletePlayerRequest player
+        |> Http.send Msgs.OnPlayerDelete
+
+
+
+
+deletePlayerUrl : PlayerId -> String
+deletePlayerUrl playerId =
+    "http://localhost:8000/players/" ++ playerId
+
+
+
+
+deletePlayerRequest : Player -> Http.Request Player
+deletePlayerRequest player =
+    Http.request
+        { body = playerEncoder player |> Http.jsonBody
+        , expect = Http.expectJson playerDecoder
+        , headers = []
+        , method = "DELETE"
+        , timeout = Nothing
+        , url = deletePlayerUrl player.id
+        , withCredentials = False
+        }
 
 
 
@@ -78,3 +119,6 @@ playerEncoder player =
             ]
     in
         Encode.object attributes
+
+
+

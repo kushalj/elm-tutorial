@@ -5,8 +5,9 @@ module Update exposing (..)
 import Msgs exposing (Msg)
 import Models exposing (Model, Player)
 import Routing exposing (parseLocation)
-import Commands exposing (savePlayerCmd)
+import Commands exposing (savePlayerCmd, deletePlayerCmd, loadPlayerList)
 import RemoteData
+import Navigation exposing (load)
 
 
 
@@ -43,6 +44,21 @@ update msg model =
 
         Msgs.OnPlayerSave (Err error) ->
             ( model, Cmd.none )
+        
+
+        Msgs.DeletePlayer player ->
+            ( model, deletePlayerCmd player )
+
+
+
+        Msgs.OnPlayerDelete (Ok player) ->
+            ( deletePlayer model player, load "http://localhost:3000/players" )
+
+
+
+        Msgs.OnPlayerDelete (Err error) ->
+            ( model, Cmd.none )
+
 
 
 
@@ -57,6 +73,23 @@ updatePlayer model updatedPlayer =
         
         updatePlayerList players =
             List.map pick players
+        
+        updatedPlayers =
+            RemoteData.map updatePlayerList model.players
+    in
+        { model | players = updatedPlayers }
+
+
+
+deletePlayer : Model -> Player -> Model
+deletePlayer model player =
+    let
+        -- pick currentPlayer =
+        --     if player.id /= currentPlayer.id then
+        --         currentPlayer
+        
+        updatePlayerList players =
+            List.filter (\p -> player.id /= p.id) players
         
         updatedPlayers =
             RemoteData.map updatePlayerList model.players
