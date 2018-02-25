@@ -48,7 +48,7 @@ playerEditPage model playerId =
             let
                 maybePlayer =
                     players
-                        |> List.filter (\player -> player.id = playerId)
+                        |> List.filter (\player -> player.id == playerId)
                         |> List.head
             in
                 case maybePlayer of
@@ -66,7 +66,7 @@ playerEditPage model playerId =
 
 
 
-notFoundView : Html Msg
+notFoundView : Html msg
 notFoundView =
     div [] 
         [ text "Not found"

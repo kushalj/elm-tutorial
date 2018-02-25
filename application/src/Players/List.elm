@@ -2,9 +2,9 @@ module Players.List exposing (..)
 
 
 import Html exposing (..)
-import Html.Attributes exposing (class)
+import Html.Attributes exposing (class, href)
 import Msgs exposing (Msg)
-
+import Routing exposing (playerPath)
 import Models exposing (Player)
 import RemoteData exposing (WebData)
 
@@ -49,7 +49,8 @@ playerRow player =
         [ td [] [ text player.id ]
         , td [] [ text player.name ]
         , td [] [ text (toString player.level) ]
-        , td [] []
+        , td [] 
+            [ editBtn player ]
         ]
     
 
@@ -72,3 +73,17 @@ maybeList response =
         RemoteData.Failure error ->
             text (toString error)
 
+
+
+editBtn : Player -> Html.Html Msg
+editBtn player =
+    let
+        path =
+            playerPath player.id
+    in
+        a
+            [ class "btn regular" 
+            , href path
+            ]
+            [ i [ class "fa fa-pencil mr1" ] [], text "Edit" ]
+        
