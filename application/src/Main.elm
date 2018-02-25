@@ -1,6 +1,5 @@
 module Main exposing (..)
 
-
 import Html exposing (program)
 import Msgs exposing (Msg)
 import Models exposing (Model, initialModel)
@@ -11,15 +10,13 @@ import View exposing (view)
 import Commands exposing (fetchPlayers)
 
 
-
 init : Location -> ( Model, Cmd Msg )
 init location =
     let
         currentRoute =
-            Routing.parseLocation location  
-    in  
+            Routing.parseLocation location
+    in
         ( initialModel currentRoute, fetchPlayers )
-
 
 
 
@@ -43,5 +40,3 @@ main =
         , update = update
         , subscriptions = subscriptions
         }
-
-

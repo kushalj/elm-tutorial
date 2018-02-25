@@ -1,13 +1,11 @@
 module Players.Edit exposing (..)
 
-
 import Html exposing (..)
 import Html.Attributes exposing (class, value, href)
 import Html.Events exposing (onClick)
 import Routing exposing (playersPath)
 import Msgs exposing (Msg)
 import Models exposing (Player)
-
 
 
 view : Player -> Html Msg
@@ -18,13 +16,10 @@ view model =
         ]
 
 
-
-
 nav : Player -> Html Msg
 nav model =
     div [ class "clearfix mb2 white bg-black p1" ]
         [ listBtn ]
-
 
 
 form : Player -> Html Msg
@@ -33,7 +28,6 @@ form player =
         [ h1 [] [ text player.name ]
         , formLevel player
         ]
-    
 
 
 formLevel : Player -> Html Msg
@@ -47,8 +41,6 @@ formLevel player =
             , btnDeletePlayer player
             ]
         ]
-    
-
 
 
 btnLevelDecrease : Player -> Html Msg
@@ -57,10 +49,8 @@ btnLevelDecrease player =
         message =
             Msgs.ChangeLevel player -1
     in
-        a [ class "btn ml1 h1", onClick message ] 
+        a [ class "btn ml1 h1", onClick message ]
             [ i [ class "fa fa-minus-circle" ] [] ]
-    
-
 
 
 btnLevelIncrease : Player -> Html Msg
@@ -69,10 +59,8 @@ btnLevelIncrease player =
         message =
             Msgs.ChangeLevel player 1
     in
-        a [ class "btn ml1 h1", onClick message ] 
+        a [ class "btn ml1 h1", onClick message ]
             [ i [ class "fa fa-plus-circle" ] [] ]
-
-
 
 
 btnDeletePlayer : Player -> Html Msg
@@ -80,13 +68,9 @@ btnDeletePlayer player =
     let
         message =
             Msgs.DeletePlayer player
-
     in
         a [ class "btn ml1 h1", onClick message ]
             [ i [ class "fa fa-remove" ] [] ]
-        
-
-
 
 
 listBtn : Html Msg
@@ -96,4 +80,3 @@ listBtn =
         , href playersPath
         ]
         [ i [ class "fa fa-chevron-left mr1" ] [], text "List" ]
-

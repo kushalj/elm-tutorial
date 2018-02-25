@@ -1,10 +1,6 @@
 module Models exposing (..)
 
-
-
 import RemoteData exposing (WebData)
-
-
 
 
 type Route
@@ -13,13 +9,10 @@ type Route
     | NotFoundRoute
 
 
-
-
 type alias Model =
     { players : WebData (List Player)
     , route : Route
     }
-
 
 
 initialModel : Route -> Model
@@ -29,10 +22,8 @@ initialModel route =
     }
 
 
-
 type alias PlayerId =
     String
-
 
 
 type alias Player =
@@ -40,5 +31,3 @@ type alias Player =
     , name : String
     , level : Int
     }
-
-

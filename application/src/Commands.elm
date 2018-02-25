@@ -1,7 +1,5 @@
 module Commands exposing (..)
 
-
-
 import Http
 import Json.Decode as Decode
 import Json.Encode as Encode
@@ -12,13 +10,9 @@ import RemoteData
 import Navigation exposing (load)
 
 
-
-
-loadPlayerList: Cmd Msg
+loadPlayerList : Cmd Msg
 loadPlayerList =
     load "http://localhost:3000/players"
-
-
 
 
 fetchPlayers : Cmd Msg
@@ -28,18 +22,14 @@ fetchPlayers =
         |> Cmd.map Msgs.OnFetchPlayers
 
 
-
 fetchPlayersUrl : String
 fetchPlayersUrl =
     "http://localhost:8000/players"
 
 
-
 playersDecoder : Decode.Decoder (List Player)
 playersDecoder =
     Decode.list playerDecoder
-
-
 
 
 playerDecoder : Decode.Decoder Player
@@ -50,20 +40,15 @@ playerDecoder =
         |> required "level" Decode.int
 
 
-
-
-savePlayerCmd : Player -> Cmd Msg 
+savePlayerCmd : Player -> Cmd Msg
 savePlayerCmd player =
     savePlayerRequest player
         |> Http.send Msgs.OnPlayerSave
 
 
-
 savePlayerUrl : PlayerId -> String
 savePlayerUrl playerId =
     "http://localhost:8000/players/" ++ playerId
-
-
 
 
 savePlayerRequest : Player -> Http.Request Player
@@ -79,20 +64,15 @@ savePlayerRequest player =
         }
 
 
-
-deletePlayerCmd : Player -> Cmd Msg 
+deletePlayerCmd : Player -> Cmd Msg
 deletePlayerCmd player =
     deletePlayerRequest player
         |> Http.send Msgs.OnPlayerDelete
 
 
-
-
 deletePlayerUrl : PlayerId -> String
 deletePlayerUrl playerId =
     "http://localhost:8000/players/" ++ playerId
-
-
 
 
 deletePlayerRequest : Player -> Http.Request Player
@@ -108,7 +88,6 @@ deletePlayerRequest player =
         }
 
 
-
 playerEncoder : Player -> Encode.Value
 playerEncoder player =
     let
@@ -119,6 +98,3 @@ playerEncoder player =
             ]
     in
         Encode.object attributes
-
-
-

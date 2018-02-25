@@ -1,6 +1,5 @@
 module Players.List exposing (..)
 
-
 import Html exposing (..)
 import Html.Attributes exposing (class, href)
 import Msgs exposing (Msg)
@@ -17,12 +16,10 @@ view response =
         ]
 
 
-
 nav : Html Msg
 nav =
     div [ class "clearfix mb2 white bg-black" ]
-        [ div [ class "left p2"] [ text "Players"] ]
-
+        [ div [ class "left p2" ] [ text "Players" ] ]
 
 
 list : List Player -> Html Msg
@@ -40,7 +37,6 @@ list players =
             , tbody [] (List.map playerRow players)
             ]
         ]
-    
 
 
 playerRow : Player -> Html Msg
@@ -49,10 +45,9 @@ playerRow player =
         [ td [] [ text player.id ]
         , td [] [ text player.name ]
         , td [] [ text (toString player.level) ]
-        , td [] 
+        , td []
             [ editBtn player ]
         ]
-    
 
 
 maybeList : WebData (List Player) -> Html Msg
@@ -61,18 +56,14 @@ maybeList response =
         RemoteData.NotAsked ->
             text ""
 
-        
         RemoteData.Loading ->
             text "Loading..."
 
-        
         RemoteData.Success players ->
             list players
 
-        
         RemoteData.Failure error ->
             text (toString error)
-
 
 
 editBtn : Player -> Html.Html Msg
@@ -82,8 +73,7 @@ editBtn player =
             playerPath player.id
     in
         a
-            [ class "btn regular" 
+            [ class "btn regular"
             , href path
             ]
             [ i [ class "fa fa-pencil mr1" ] [], text "Edit" ]
-        

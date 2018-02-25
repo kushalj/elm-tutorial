@@ -1,11 +1,9 @@
 module Msgs exposing (..)
 
-
 import Http
 import Models exposing (Player, PlayerId)
 import Navigation exposing (Location)
 import RemoteData exposing (WebData)
-
 
 
 type Msg
@@ -15,6 +13,3 @@ type Msg
     | OnPlayerSave (Result Http.Error Player)
     | DeletePlayer Player
     | OnPlayerDelete (Result Http.Error Player)
-
-
-
